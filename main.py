@@ -14,10 +14,10 @@ def fit_linear(filename):
 
             dy_2 =[]
             dy2_denom_list =[]
-            for k in organized_data["dy"]:   #to count using for loops, I will use the dummy interval k
+            for denom in organized_data["dy"]:   #to count using for loops, I will use the dummy interval k
 
-                dy2_denom_list.append(1/ k**2)
-                dy_2.append(k**2)
+                dy2_denom_list.append(1/ denom**2)
+                dy_2.append(denom**2)
             dy2_denom = sum(dy2_denom_list)
             x_2 = []
             for k in organized_data["x"]:
@@ -37,10 +37,10 @@ def fit_linear(filename):
                 term4 = term4 + x_2[k]*dy2_denom_list[k]
                 term5 = term5 + dy_2[k]*dy2_denom_list[k]
             final_term_list = [term1/dy2_denom, term2/dy2_denom, term3/dy2_denom, term4/dy2_denom, term5/dy2_denom]
-            a = (final_term_list[2]-(final_term_list[0]*final_term_list[1]))/(final_term_list[3]-final_term_list[0]**2)
-            aerr = (final_term_list[4]/data_points*(final_term_list[3]-final_term_list[0]**2))**0.5
+            a = (final_term_list[2]-final_term_list[0]*final_term_list[1])/(final_term_list[3]-final_term_list[0]**2)
+            aerr = ((final_term_list[4])/(data_points*(final_term_list[3]-final_term_list[0]**2)))**0.5
             b = final_term_list[1]-(a*final_term_list[0])
-            berr = (final_term_list[4]*final_term_list[3]/data_points*(final_term_list[3]-final_term_list[0]**2))**0.5
+            berr = (final_term_list[4]*final_term_list[3]/(data_points*(final_term_list[3]-final_term_list[0]**2)))**0.5
             chisq = 0
             for k in range(data_points):
                 d = organized_data["y"][k]-(a*organized_data["x"][k]+b)
@@ -122,7 +122,7 @@ def fit_linear(filename):
                                 break
                 graph(organized_data)
 
-
+fit_linear("C:/Users/UriMiron/PycharmProjects/cancer/input.txt")
 
 
 
